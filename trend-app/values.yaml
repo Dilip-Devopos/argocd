@@ -1,0 +1,35 @@
+replicaCount: 2
+
+image:
+  repository: kdilipkumar/trend
+  tag: v22
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+livenessProbe:
+  path: /
+  port: 80
+  initialDelaySeconds: 15
+  periodSeconds: 20
+  failureThreshold: 3
+
+readinessProbe:
+  path: /
+  port: 80
+  initialDelaySeconds: 10
+  periodSeconds: 15
+  failureThreshold: 3
+
+containerPort: 80
